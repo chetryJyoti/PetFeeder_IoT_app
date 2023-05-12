@@ -1,0 +1,7 @@
+{
+  "name": "Pet_feeder_app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
