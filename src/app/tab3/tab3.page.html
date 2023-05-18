@@ -11,7 +11,8 @@
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <ion-grid *ngIf="!isLoading">
     <ion-row *ngFor="let image of images">
-      <img [src]="image" alt="Image" />
+      <img [src]="image.url" alt="Image" />
+      <p>Clicked On:<br> {{ image.createdAt }}</p>
     </ion-row>
   </ion-grid>
 </ion-content>

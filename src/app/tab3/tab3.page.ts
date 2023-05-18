@@ -9,7 +9,7 @@ import { AppwriteService } from 'src/services/appwriteService';
   styleUrls: ['./tab3.page.scss'],
 })
 export class Tab3Page {
-  images: SafeUrl[] = [];
+  images: { url: SafeUrl; createdAt: string }[] = [];
   isLoading: boolean = false;
 
   constructor(
@@ -17,20 +17,19 @@ export class Tab3Page {
     private sanitizer: DomSanitizer
   ) {}
 
-  // ngOnInit() {
-  //   this.isLoading=true;
-  //   this.fetchImages();
-  //   this.isLoading=false;
-  // }
   async fetchImages() {
     this.isLoading = true;
     const bucketId = environment.BUCKET_ID;
     await this.appwriteService.getAllImages(bucketId).then(
       (response) => {
         console.log(response); // Success
-        this.images = response.files.map((file: any) =>
-          this.getSafeUrl(file.$id)
-        );
+        this.images = response.files
+          .map((file: any) => ({
+            url: this.getSafeUrl(file.$id),
+            createdAt: file.$createdAt, // Assuming createdAt is present in the response
+          }))
+          .sort((a: any, b: any) => b.createdAt.localeCompare(a.createdAt));
+
         this.isLoading = false;
       },
       (error) => {
@@ -39,6 +38,7 @@ export class Tab3Page {
       }
     );
   }
+
   getSafeUrl(fileId: string): SafeUrl {
     const unsafeUrl = `https://cloud.appwrite.io/v1/storage/buckets/${environment.BUCKET_ID}/files/${fileId}/view?project=${environment.PROJECT_ID}`;
     return this.sanitizer.bypassSecurityTrustUrl(unsafeUrl);

@@ -1,33 +1,91 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-// import { AppwriteService } from 'src/services/appwriteService';
-
+import { AppwriteService } from 'src/services/appwriteService';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
   servoState: string = 'off';
   disableButton: boolean = false;
   THINGS_UPDATE_URI = 'https://api.thingspeak.com/update.json';
   feedCount = 0;
   // private appwriteService:AppwriteService
-  constructor(private http: HttpClient,) {}
+  constructor(
+    private http: HttpClient,
+    private appwriteService: AppwriteService
+  ) {}
 
-  resetFeedCount() {
-    this.feedCount = 0;
+  ngOnInit() {
+    this.getFeedData();
+  }
+  async getFeedData() {
+    await this.appwriteService
+      .listDocuments(
+        environment.APPWRITE_DB_ID,
+        environment.APPWRITE_COLLECTION_ID
+      )
+      .then((response) => {
+        const documents = response.documents;
+        console.log('documents:', documents);
+        if (documents.length > 0) {
+          const firstDocument = documents[0];
+          this.feedCount = firstDocument.FeedTimes;
+          console.log('Feed count retrieved successfully:', this.feedCount);
+        } else {
+          console.log('No documents found in the collection');
+        }
+      })
+      .catch((error) => {
+        console.log('Error retrieving feed count:', error);
+      });
   }
 
-  updateFeedCount(){
+  async resetFeedCount() {
+    this.feedCount=0;
+    const data = {
+      FeedTimes: 0, // Pass the integer value directly
+    };
+    await this.appwriteService
+      .updateDocument(
+        environment.APPWRITE_DB_ID,
+        environment.APPWRITE_COLLECTION_ID,
+        environment.APPWRITE_DOC_ID,
+        data
+      )
+      .then(() => {
+        console.log('Counter reset successfully');
+      })
+      .catch((error) => {
+        console.log('Error reseting feedCounts:', error);
+      });
+  }
+
+  async updateFeedCount() {
     this.feedCount += 1;
-    // this.appwriteService.updateCounter(this.feedCount);
+    const data = {
+      FeedTimes: this.feedCount, // Pass the integer value directly
+    };
+    await this.appwriteService
+      .updateDocument(
+        environment.APPWRITE_DB_ID,
+        environment.APPWRITE_COLLECTION_ID,
+        environment.APPWRITE_DOC_ID,
+        data
+      )
+      .then(() => {
+        console.log('Counter updated successfully');
+      })
+      .catch((error) => {
+        console.log('Error updating feedCounts:', error);
+      });
   }
 
   async toggleServo() {
-    this.updateFeedCount()
+    this.updateFeedCount();
     this.servoState = this.servoState === 'on' ? 'off' : 'on';
     const data = {
       api_key: environment.THINGS_WRITE_API_KEY,
