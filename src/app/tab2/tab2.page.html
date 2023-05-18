@@ -1,17 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title> Images </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="images">
+    <h1>Latest clicked image will be shown here...</h1>
+    <div class="loader" *ngIf="isLoading">
+      <ion-spinner></ion-spinner>
+      <p>It only takes 30seconds... </p>
+      <p>Please wait...</p>
+    </div>
+    <div *ngIf="!isLoading && !image_notFound && imageUrl">
+      <img [src]="imageUrl" alt="Image" />
+    </div>
+    <div *ngIf="image_notFound">Image can't be captured...try again after some time </div>
+    <ion-button expand="block" (click)="fetchImageUrl()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'Click img' }}
+    </ion-button>
+  </div>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>
