@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { AppwriteService } from 'src/services/appwriteService';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-tab3',
   templateUrl: './tab3.page.html',
   styleUrls: ['./tab3.page.scss'],
+  providers: [DatePipe]
 })
 export class Tab3Page {
   images: { url: SafeUrl; createdAt: string }[] = [];
@@ -14,7 +15,8 @@ export class Tab3Page {
 
   constructor(
     private appwriteService: AppwriteService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private datePipe: DatePipe
   ) {}
 
   async fetchImages() {

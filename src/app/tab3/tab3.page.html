@@ -5,14 +5,35 @@
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="fetchImages()" [disabled]="isLoading"
-    >Fetch Images</ion-button
-  >
-  <ion-spinner *ngIf="isLoading"></ion-spinner>
+  <ion-grid>
+    <ion-row>
+      <ion-button
+        (click)="fetchImages()"
+        expand="full"
+        shape="round"
+        color="dark"
+        [disabled]="isLoading"
+        ><ion-icon name="image-outline"></ion-icon> Get Images
+      </ion-button>
+    </ion-row>
+    <ion-row>
+      <ion-spinner class="loader" *ngIf="isLoading"></ion-spinner>
+    </ion-row>
+  </ion-grid>
   <ion-grid *ngIf="!isLoading">
     <ion-row *ngFor="let image of images">
+      <div class="date-time">
+        <div>
+          <ion-icon name="calendar-outline"></ion-icon>
+          {{ image.createdAt | date: 'yyyy-MM-dd' }}
+        </div>
+        <div>
+          <ion-icon name="time-outline"></ion-icon>
+          {{ image.createdAt | date: 'HH:mm:ss' }}
+        </div>
+      </div>
+
       <img [src]="image.url" alt="Image" />
-      <p>Clicked On:<br> {{ image.createdAt }}</p>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -5,16 +5,35 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div>
-    <h1>Feed counts:{{feedCount}}</h1>
-  </div>
-  <ion-button (click)="resetFeedCount()">Reset feedCount</ion-button>
+  <ion-grid>
+    <ion-row class="feed_counts">
+      <ion-col> <p>Feed counts:{{feedCount}}</p></ion-col>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-button
+            expand="block"
+            shape="round"
+            color="danger"
+            size="small"
+            slot="end"
+            class="reset_btn"
+            (click)="resetFeedCount()"
+            >Reset
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
   <ion-button
     expand="block"
     class="circular-button"
+    color="dark"
     (click)="toggleServo()"
     [disabled]="disableButton"
-    >{{ servoState === 'on' ? 'Feeding your pet...🤗' : 'Feed you pet' }}</ion-button
+    >{{ servoState === 'on' ? 'Feeding your pet...🤗' : 'Feed you pet'
+    }}</ion-button
   >
 </ion-content>
-
