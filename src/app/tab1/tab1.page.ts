@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AppwriteService } from 'src/services/appwriteService';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -16,8 +17,29 @@ export class Tab1Page implements OnInit {
   // private appwriteService:AppwriteService
   constructor(
     private http: HttpClient,
-    private appwriteService: AppwriteService
+    private appwriteService: AppwriteService,
+    private alertController: AlertController
   ) {}
+
+  async presentAlertForResetFeedCounts() {
+    const alert = await this.alertController.create({
+      header: 'Reset FeedCount',
+      message: 'you are resetting feed counts this cannot be undone!',
+      buttons: [
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.resetFeedCount();
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
 
   ngOnInit() {
     this.getFeedData();
@@ -45,7 +67,7 @@ export class Tab1Page implements OnInit {
   }
 
   async resetFeedCount() {
-    this.feedCount=0;
+    this.feedCount = 0;
     const data = {
       FeedTimes: 0, // Pass the integer value directly
     };

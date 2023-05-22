@@ -1,81 +1,71 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AlertController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { AppwriteService } from 'src/services/appwriteService';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  imageUrl: SafeUrl = '';
-  file_id: any;
-  isLoading: boolean = false;
-  image_notFound: boolean = false;
-
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
-
-  async clickImageCall() {
-    console.log('clickImageCalled');
-
-    const onData = {
-      api_key: environment.THINGS_WRITE_API_KEY,
-      field2: '1',
+  selectedDate: string = '';
+  showPicker: boolean = false;
+  constructor(private alertController:AlertController,private appwriteService: AppwriteService) {
+    const currentDate = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
     };
-
-    const offData = {
-      api_key: environment.THINGS_WRITE_API_KEY,
-      field2: '0',
-    };
-
-    try {
-      await this.http.post(environment.THINGS_UPDATE_URI, onData).toPromise();
-      console.log('click data send');
-
-      setTimeout(async () => {
-        // Automatically turn off the toggle button after 15 seconds
-        await this.http
-          .post(environment.THINGS_UPDATE_URI, offData)
-          .toPromise();
-        console.log('OffData send automatically');
-      }, 15000);
-    } catch (error) {
-      console.error('Error occurred:', error);
-    }
+    this.selectedDate = currentDate.toLocaleString('en-IN', options);
+    console.log(this.selectedDate);
   }
 
-  async fetchImageUrl(): Promise<void> {
-    this.isLoading = true;
-    await this.clickImageCall();
-    setTimeout(async () => {
-      console.log('img show called');
-      try {
-        const response = await this.http
-          .get<any>(
-            `${environment.THINGS_LINK}/${environment.THINGS_CHANNEL_ID}/fields/3.json?api_key=${environment.THINGS_READ_API_KEY}&results=10`
-          )
-          .toPromise();
-        const feedData = response.feeds;
-        console.log('feedData:', feedData);
-        if (feedData && feedData.length > 0) {
-          const latestFeed = feedData[0];
-          console.log('latestFeed', latestFeed);
-          this.file_id = latestFeed.field3;
-          if (latestFeed.field3 == null) {
-            this.image_notFound = true;
-          }
-          const unsafeUrl = `${environment.ENDPOINT}/storage/buckets/${environment.BUCKET_ID}/files/${this.file_id}/view?project=${environment.PROJECT_ID}`;
-          this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeUrl);
-        } else {
-          console.log('No feed data found.');
-        }
-        this.isLoading = false;
-      } catch (error) {
-        console.log('Failed to fetch feed data:', error);
-      }
-      //make this 30s senconds in production
-    }, 30000);
+  async presentAlertForSchedulingFeed() {
+    const alert = await this.alertController.create({
+      header: 'Are you sure?',
+      message: 'Your pet will be next feed automatically in this time',
+      buttons: [
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.updateDateTime();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
-  
+  toggleDateTimePicker() {
+    this.showPicker = !this.showPicker;
+  }
+  updateDateTime() {
+    const data = {
+      selectedDateTime: this.selectedDate,
+    };
+    console.log("data:",data);
+
+
+    // this.appwriteService
+    //   .updateDocument(
+    //     environment.APPWRITE_DB_ID,
+    //     environment.APPWRITE_COLLECTION_ID,
+    //     environment.APPWRITE_DOC_ID,
+    //     data
+    //   )
+    //   .then(() => {
+    //     console.log('Date and time updated successfully');
+    //   })
+    //   .catch((error) => {
+    //     console.log('Error updating date and time:', error);
+    //   });
+  }
 }

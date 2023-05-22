@@ -17,7 +17,7 @@
             size="small"
             slot="end"
             class="reset_btn"
-            (click)="resetFeedCount()"
+            (click)="presentAlertForResetFeedCounts()"
             >Reset
           </ion-button>
         </ion-item>
@@ -25,12 +25,11 @@
     </ion-row>
   </ion-grid>
 
-
-
   <ion-button
     expand="block"
     class="circular-button"
     color="dark"
+    shape="round"
     (click)="toggleServo()"
     [disabled]="disableButton"
     >{{ servoState === 'on' ? 'Feeding your pet...🤗' : 'Feed you pet'

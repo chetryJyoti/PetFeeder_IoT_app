@@ -1,24 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Images </ion-title>
+    <ion-title>Schedule Feed Time</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="images">
-    <h1>Latest clicked image will be shown here...</h1>
-    <div class="loader" *ngIf="isLoading">
-      <ion-spinner></ion-spinner>
-      <p>It only takes 30seconds... </p>
-      <p>Please wait...</p>
-    </div>
-    <div *ngIf="!isLoading && !image_notFound && imageUrl">
-      <img [src]="imageUrl" alt="Image" />
-    </div>
-    <div *ngIf="image_notFound">Image can't be captured...try again after some time </div>
-    <ion-button expand="block" (click)="fetchImageUrl()" [disabled]="isLoading">
-      {{ isLoading ? 'Loading...' : 'Click img' }}
-    </ion-button>
-  </div>
+  <ion-button
+    expand="block"
+    shape="round"
+    color="dark"
+    (click)="toggleDateTimePicker()"
+    >Pick Date & Time</ion-button
+  >
 
+  <ion-datetime
+    *ngIf="showPicker"
+    [(ngModel)]="selectedDate"
+    display-format="DD/MM/YYYY HH:mm"
+    picker-format="DD/MM/YYYY HH:mm"
+    locale="en-IN"
+    hourCycle="h24"
+    [value]="selectedDate"
+  ></ion-datetime>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        Scheduled Date and Time:<br />
+        {{ selectedDate }}
+      </ion-label>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button
+            (click)="presentAlertForSchedulingFeed()"
+            expand="block"
+            shape="round"
+            color="success"
+            >Schedule</ion-button
+          ></ion-col
+        >
+        <ion-col>
+          <ion-button
+            (click)="presentAlertForSchedulingFeed()"
+            expand="block"
+            shape="round"
+            color="success"
+            >Un-Schedule</ion-button
+          ></ion-col
+        >
+      </ion-row>
+    </ion-grid>
+  </ion-list>
 </ion-content>
