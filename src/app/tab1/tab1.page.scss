@@ -7,7 +7,6 @@
   gap: 4;
   justify-content: space-between;
   align-items: center;
-
 .reset_btn{
   --padding-start:6px;
   --padding-end:6px;
@@ -17,5 +16,28 @@
 
 
 
+.progress_con{
+  margin-left: 10px;
+}
+.progress-bar {
+  position: relative;
+}
 
+.verticalLine {
+  width: 50%;
+  height: 200px;
+  background: var(--ion-color-success);
+  border-radius: 3%;
+  margin-left: 209px;
+}
+
+.marker {
+  position: absolute;
+  width:53px;
+  height: 10px;
+  background: var(--ion-color-dark) !important;
+  left: 50%;
+  border-radius: 3px;
+  transform: translate(130%);
+}
 

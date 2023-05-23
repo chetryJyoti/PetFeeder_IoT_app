@@ -12,19 +12,72 @@ import { AlertController } from '@ionic/angular';
 export class Tab1Page implements OnInit {
   servoState: string = 'off';
   disableButton: boolean = false;
-  THINGS_UPDATE_URI = 'https://api.thingspeak.com/update.json';
-  feedCount = 0;
-  // private appwriteService:AppwriteService
+  currentFeedCount = 0;
+  totalFeedCount = 0;
+  currentMarkerPosition: string = '5%';
+  initialMarkerPosition = 0;
+  markerPositions: string[] = [
+    '5%',
+    '10%',
+    '15%',
+    '20%',
+    '25%',
+    '30%',
+    '35%',
+    '40%',
+    '45%',
+    '50%',
+    '55%',
+    '60%',
+    '65%',
+    '70%',
+    '75%',
+    '80%',
+    '85%',
+    '90%',
+    '95%',
+  ];
+
+  //means when the currentFeedCount reaches 19 the food is finished(this will be a hard coded value)
+  emptyFoodCount = 19;
+
+  foodEmptyMessage: string = '';
+  emptyFoodColor: string = 'var(--ion-color-success)';
   constructor(
     private http: HttpClient,
     private appwriteService: AppwriteService,
     private alertController: AlertController
   ) {}
 
+  updateMarkerPosition() {
+    this.emptyFoodCount -= 1;
+
+    if (this.emptyFoodCount <= 0) {
+      this.currentMarkerPosition =
+        this.markerPositions[this.markerPositions.length - 1];
+      this.foodEmptyMessage = 'Food is empty';
+      this.emptyFoodColor = 'var(--ion-color-danger)';
+    } else {
+      this.initialMarkerPosition += 1;
+
+      if (this.initialMarkerPosition >= this.markerPositions.length) {
+        this.initialMarkerPosition = 0;
+      }
+
+      this.currentMarkerPosition =
+        this.markerPositions[this.initialMarkerPosition];
+      this.foodEmptyMessage = '';
+    }
+
+    console.log(this.emptyFoodCount);
+    console.log(this.currentMarkerPosition);
+    console.log(this.foodEmptyMessage);
+  }
+
   async presentAlertForResetFeedCounts() {
     const alert = await this.alertController.create({
-      header: 'Reset FeedCount',
-      message: 'you are resetting feed counts this cannot be undone!',
+      header: 'Are you sure?',
+      message: 'Resetting means you are refilling food!',
       buttons: [
         {
           text: 'CANCEL',
@@ -42,7 +95,9 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
+    //for testing purposes iam stoping api calls
     this.getFeedData();
+    this.getTotalFeedCounts();
   }
   async getFeedData() {
     await this.appwriteService
@@ -55,8 +110,11 @@ export class Tab1Page implements OnInit {
         console.log('documents:', documents);
         if (documents.length > 0) {
           const firstDocument = documents[0];
-          this.feedCount = firstDocument.FeedTimes;
-          console.log('Feed count retrieved successfully:', this.feedCount);
+          this.currentFeedCount = firstDocument.FeedTimes;
+          console.log(
+            'Feed count retrieved successfully:',
+            this.currentFeedCount
+          );
         } else {
           console.log('No documents found in the collection');
         }
@@ -67,7 +125,7 @@ export class Tab1Page implements OnInit {
   }
 
   async resetFeedCount() {
-    this.feedCount = 0;
+    this.currentFeedCount = 0;
     const data = {
       FeedTimes: 0, // Pass the integer value directly
     };
@@ -87,9 +145,12 @@ export class Tab1Page implements OnInit {
   }
 
   async updateFeedCount() {
-    this.feedCount += 1;
+    this.currentFeedCount += 1;
+    this.totalFeedCount += 1;
+    this.updateMarkerPosition();
     const data = {
-      FeedTimes: this.feedCount, // Pass the integer value directly
+      FeedTimes: this.currentFeedCount, // Pass the integer value directly
+      totalFeedCount: this.totalFeedCount,
     };
     await this.appwriteService
       .updateDocument(
@@ -114,7 +175,7 @@ export class Tab1Page implements OnInit {
       field1: this.servoState === 'on' ? '1' : '0',
     };
 
-    await this.http.post(this.THINGS_UPDATE_URI, data).subscribe(() => {
+    await this.http.post(environment.THINGS_UPDATE_URI, data).subscribe(() => {
       console.log(`Servo toggled ${this.servoState}`);
       this.disableButton = true;
 
@@ -125,11 +186,37 @@ export class Tab1Page implements OnInit {
           api_key: environment.THINGS_WRITE_API_KEY,
           field1: '0',
         };
-        this.http.post(this.THINGS_UPDATE_URI, offData).subscribe(() => {
+        this.http.post(environment.THINGS_UPDATE_URI, offData).subscribe(() => {
           console.log('Servo turned off automatically');
           this.disableButton = false;
         });
       }, 15000);
     });
+  }
+
+  ///total feed counts
+  async getTotalFeedCounts() {
+    await this.appwriteService
+      .listDocuments(
+        environment.APPWRITE_DB_ID,
+        environment.APPWRITE_COLLECTION_ID
+      )
+      .then((response) => {
+        const documents = response.documents;
+        console.log('documents:', documents);
+        if (documents.length > 0) {
+          const firstDocument = documents[0];
+          this.totalFeedCount = firstDocument.totalFeedCount;
+          console.log(
+            'Total Feed count retrieved successfully:',
+            this.currentFeedCount
+          );
+        } else {
+          console.log('No documents found in the collection');
+        }
+      })
+      .catch((error) => {
+        console.log('Error retrieving feed count:', error);
+      });
   }
 }

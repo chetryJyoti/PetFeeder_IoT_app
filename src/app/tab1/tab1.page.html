@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row class="feed_counts">
-      <ion-col> <p>Feed counts:{{feedCount}}</p></ion-col>
+      <ion-col> <p>Feed counts:{{currentFeedCount}}</p></ion-col>
       <ion-col>
         <ion-item lines="none">
           <ion-button
@@ -23,7 +23,18 @@
         </ion-item>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col><p>Total FeedCounts:{{totalFeedCount}}</p></ion-col>
+    </ion-row>
   </ion-grid>
+
+  <ion-list class="progress_con" lines="none">
+    <ion-label>Food Status:{{foodEmptyMessage}}</ion-label>
+    <ion-item class="progress-bar">
+      <div class="verticalLine" [style.background]="emptyFoodColor"></div>
+      <div class="marker" [style.top]="currentMarkerPosition"></div>
+    </ion-item>
+  </ion-list>
 
   <ion-button
     expand="block"
