@@ -1,3 +1,58 @@
+ion-header{
+  ion-title{
+    font-size: medium;
+  }
+}
+
+ion-text{
+  font-size: small;
+}
+
+ion-avatar{
+  width: 60px;
+  height: 60px;
+}
+.food_level-indicator{
+  ion-text{
+    margin-right: 10px;
+  }
+  fa-icon{
+    margin:0 3px;
+  }
+}
+ion-grid{
+  .more_details-text{
+    margin-left: 20px;
+    font-size: larger;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+.feed_btn{
+   margin:10px 35%;
+   margin-top: 50px;
+  --border-color:#9747FF;
+  --color:#9747FF;
+  font-size: small;
+  ion-icon {
+    font-size: 60px;
+    color: #9747FF;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .circular-button {
   border-radius: 50%;

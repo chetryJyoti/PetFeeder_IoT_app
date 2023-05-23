@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row class="feed_counts">
       <ion-col> <p>Feed counts:{{currentFeedCount}}</p></ion-col>
       <ion-col>
@@ -35,7 +35,7 @@
       <div class="marker" [style.top]="currentMarkerPosition"></div>
     </ion-item>
   </ion-list>
-
+  <ion-spinner><ion-icon class="home"></ion-icon></ion-spinner>
   <ion-button
     expand="block"
     class="circular-button"
@@ -45,5 +45,52 @@
     [disabled]="disableButton"
     >{{ servoState === 'on' ? 'Feeding your pet...🤗' : 'Feed you pet'
     }}</ion-button
-  >
+  > -->
+
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img alt="bruno_img" src="../../assets/images/bruno.jpeg" />
+    </ion-avatar>
+    <ion-label>Bruno</ion-label>
+  </ion-item>
+
+  <ion-item class="food_level-indicator">
+    <ion-text>Food Level:</ion-text>
+    <fa-icon icon="bowl-food" style="color: #833a3a" />
+    <fa-icon icon="bowl-food" style="color: #833a3a" />
+    <fa-icon icon="bowl-food" style="color: #833a3a" />
+    <fa-icon icon="bowl-food" style="color: #833a3a" />
+    <fa-icon icon="bowl-food" style="color: #833a3a" />
+  </ion-item>
+  <ion-item>
+    <ion-label><ion-text>LastFeed:20/5/23 at 10am </ion-text></ion-label>
+  </ion-item>
+
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Feed Details</ion-label>
+      </ion-item>
+      <ion-item ion-padding slot="content" lines="none">
+        <ion-grid >
+          <ion-row ion-padding>
+            <ion-col><ion-text>Todays Feeds</ion-text></ion-col>
+            <ion-col><ion-text>TotalFeeds:</ion-text></ion-col>
+          </ion-row>
+          <ion-row ion-padding>
+            <ion-col><ion-text class="more_details-text">10</ion-text></ion-col>
+            <ion-col><ion-text class="more_details-text">50</ion-text></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <ion-item lines="none">
+    <ion-button class="refill_btn" color="success">Refill Food</ion-button>
+  </ion-item>
+  <ion-button class="feed_btn" size="large" fill="outline">
+    <ion-icon slot="end" size="large" name="paw"></ion-icon>
+    feed
+  </ion-button>
 </ion-content>
