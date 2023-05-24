@@ -30,6 +30,8 @@ src/environments/environment.ts
 /www
 /platforms
 /plugins
+/android
+
 
 # Compiled output
 /dist
