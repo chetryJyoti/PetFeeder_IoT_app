@@ -35,64 +35,36 @@ ion-grid{
   --border-color:#9747FF;
   --color:#9747FF;
   font-size: small;
-  ion-icon {
+  --padding-top:50px;
+  --padding-bottom:50px;
+  --border-radius:50%;
+  fa-icon {
     font-size: 60px;
     color: #9747FF;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.circular-button {
-  border-radius: 50%;
+.refill_btn{
+  fa-icon {
+    font-size: 16px;
+    font-weight: 700;
+  }
 }
-.feed_counts {
-  display: flex;
-  gap: 4;
-  justify-content: space-between;
-  align-items: center;
-.reset_btn{
-  --padding-start:6px;
-  --padding-end:6px;
-  --padding-bottom:6px,
-  --padding-top:6px
-}}
-
-
-
-.progress_con{
-  margin-left: 10px;
-}
-.progress-bar {
-  position: relative;
+.selected_images{
+  fa-icon{
+    margin-right: 3px;
+    font-size: 16px;
+  }
 }
 
-.verticalLine {
-  width: 50%;
-  height: 200px;
-  background: var(--ion-color-success);
-  border-radius: 3%;
-  margin-left: 209px;
+
+ion-toast{
+  --color:#9747FF;
+  --background	:white;
 }
 
-.marker {
-  position: absolute;
-  width:53px;
-  height: 10px;
-  background: var(--ion-color-dark) !important;
-  left: 50%;
-  border-radius: 3px;
-  transform: translate(130%);
-}
+
+
+
+
+
 

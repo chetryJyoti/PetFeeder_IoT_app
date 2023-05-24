@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AppwriteService } from 'src/services/appwriteService';
 import { AlertController } from '@ionic/angular';
-
+import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -43,11 +43,31 @@ export class Tab1Page implements OnInit {
 
   foodEmptyMessage: string = '';
   emptyFoodColor: string = 'var(--ion-color-success)';
+  options: any;
+  selectedImage: string = '../../assets/images/bruno.jpeg';
   constructor(
     private http: HttpClient,
     private appwriteService: AppwriteService,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private imagePicker: ImagePicker
+  ) {
+
+  }
+  imagePkr() {
+    this.options = {
+      width: 60,
+      height: 60,
+      quality: 30,
+      outputType: 1
+    };
+
+    this.imagePicker.getPictures(this.options).then((results) => {
+      if (results.length > 0) {
+        this.selectedImage = results[0];
+        console.log('Image URI: ' + this.selectedImage);
+      }
+    }, (err) => { });
+  }
 
   updateMarkerPosition() {
     this.emptyFoodCount -= 1;
@@ -77,7 +97,7 @@ export class Tab1Page implements OnInit {
   async presentAlertForResetFeedCounts() {
     const alert = await this.alertController.create({
       header: 'Are you sure?',
-      message: 'Resetting means you are refilling food!',
+      message: 'Refilling food!',
       buttons: [
         {
           text: 'CANCEL',
@@ -96,8 +116,8 @@ export class Tab1Page implements OnInit {
 
   ngOnInit() {
     //for testing purposes iam stoping api calls
-    this.getFeedData();
-    this.getTotalFeedCounts();
+    // this.getFeedData();
+    // this.getTotalFeedCounts();
   }
   async getFeedData() {
     await this.appwriteService
