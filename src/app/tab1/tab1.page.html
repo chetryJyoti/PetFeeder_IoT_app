@@ -5,48 +5,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-grid>
-    <ion-row class="feed_counts">
-      <ion-col> <p>Feed counts:{{currentFeedCount}}</p></ion-col>
-      <ion-col>
-        <ion-item lines="none">
-          <ion-button
-            expand="block"
-            shape="round"
-            color="danger"
-            size="small"
-            slot="end"
-            class="reset_btn"
-            (click)="presentAlertForResetFeedCounts()"
-            >Reset
-          </ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><p>Total FeedCounts:{{totalFeedCount}}</p></ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-list class="progress_con" lines="none">
-    <ion-label>Food Status:{{foodEmptyMessage}}</ion-label>
-    <ion-item class="progress-bar">
-      <div class="verticalLine" [style.background]="emptyFoodColor"></div>
-      <div class="marker" [style.top]="currentMarkerPosition"></div>
-    </ion-item>
-  </ion-list>
-  <ion-spinner><ion-icon class="home"></ion-icon></ion-spinner>
-  <ion-button
-    expand="block"
-    class="circular-button"
-    color="dark"
-    shape="round"
-    (click)="toggleServo()"
-    [disabled]="disableButton"
-    >{{ servoState === 'on' ? 'Feeding your pet...🤗' : 'Feed you pet'
-    }}</ion-button
-  > -->
-
   <ion-item lines="none" class="selected_images">
     <ion-avatar slot="start">
       <img alt="bruno_img" [src]="selectedImage" />
@@ -57,13 +15,14 @@
     /></ion-button>
   </ion-item>
 
-  <ion-item class="food_level-indicator">
+  <ion-item class="food_level-indicator" lines="none">
     <ion-text>Food Level:</ion-text>
+    <!-- <fa-icon icon="bowl-food" style="color: #833a3a" />
     <fa-icon icon="bowl-food" style="color: #833a3a" />
     <fa-icon icon="bowl-food" style="color: #833a3a" />
     <fa-icon icon="bowl-food" style="color: #833a3a" />
-    <fa-icon icon="bowl-food" style="color: #833a3a" />
-    <fa-icon icon="bowl-food" style="color: #833a3a" />
+    <fa-icon icon="bowl-food" style="color: #833a3a" /> -->
+    {{foodLevelValue}}
     <ion-button
       class="refill_btn"
       fill="empty"
@@ -74,7 +33,11 @@
     ></ion-button>
   </ion-item>
   <ion-item>
-    <ion-label><ion-text>LastFeed:20/5/23 at 10am </ion-text></ion-label>
+    <ion-label
+      ><ion-text
+        >LastFeed: <strong>{{lastFeedDateTime}}</strong>
+      </ion-text></ion-label
+    >
   </ion-item>
 
   <ion-accordion-group>
@@ -105,15 +68,22 @@
     </ion-accordion>
   </ion-accordion-group>
 
-  <ion-button
-    class="feed_btn"
-    id="open-toast"
-    size="large"
-    fill="none"
-    (click)="toggleServo()"
-    [disabled]="disableButton"
-  >
-    <fa-icon icon="paw" style="color: #9747ff" />
-  </ion-button>
-  <ion-toast trigger="open-toast" message="Feeding your pet" [duration]="15000"></ion-toast>
+  <div class="feed_btn-parent">
+    <ion-button
+      class="feed_btn"
+      id="open-toast"
+      size="large"
+      fill="none"
+      (click)="toggleServo()"
+      [disabled]="disableButton"
+    >
+      <fa-icon icon="paw" style="color: #9747ff" />
+    </ion-button>
+  </div>
+
+  <ion-toast
+    trigger="open-toast"
+    message="Feeding your pet"
+    [duration]="5000"
+  ></ion-toast>
 </ion-content>

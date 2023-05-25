@@ -1,27 +1,18 @@
-ion-header{
-  ion-title{
-    font-size: medium;
-  }
-}
 
-ion-text{
-  font-size: small;
-}
-
-ion-avatar{
+ion-avatar {
   width: 60px;
   height: 60px;
 }
-.food_level-indicator{
-  ion-text{
+.food_level-indicator {
+  ion-text {
     margin-right: 10px;
   }
-  fa-icon{
-    margin:0 3px;
+  fa-icon {
+    margin: 0 3px;
   }
 }
-ion-grid{
-  .more_details-text{
+ion-grid {
+  .more_details-text {
     margin-left: 20px;
     font-size: larger;
     text-align: center;
@@ -29,42 +20,36 @@ ion-grid{
   }
 }
 
-.feed_btn{
-   margin:10px 35%;
-   margin-top: 50px;
-  --border-color:#9747FF;
-  --color:#9747FF;
-  font-size: small;
-  --padding-top:50px;
-  --padding-bottom:50px;
-  --border-radius:50%;
-  fa-icon {
-    font-size: 60px;
-    color: #9747FF;
+.feed_btn-parent {
+  text-align: center;
+  margin-top: 50px;
+  .feed_btn {
+    --color: #9747ff;
+    font-size: small;
+    --padding-top: 50px;
+    --padding-bottom: 50px;
+    --border-radius: 50%;
+    fa-icon {
+      font-size: 68px;
+      color: #9747ff;
+    }
   }
 }
-.refill_btn{
+
+.refill_btn {
   fa-icon {
     font-size: 16px;
     font-weight: 700;
   }
 }
-.selected_images{
-  fa-icon{
+.selected_images {
+  fa-icon {
     margin-right: 3px;
     font-size: 16px;
   }
 }
 
-
-ion-toast{
-  --color:#9747FF;
-  --background	:white;
+ion-toast {
+  --color: #9747ff;
+  --background: white;
 }
-
-
-
-
-
-
-
