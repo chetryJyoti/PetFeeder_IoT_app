@@ -26,8 +26,8 @@
   <ion-list>
     <ion-item>
       <ion-label>
-        Scheduled Date and Time:<br />
-        {{ selectedDate }}
+        <ion-text>Scheduled Date and Time:</ion-text><br />
+        <strong> {{ selectedDate }}</strong>
       </ion-label>
     </ion-item>
     <ion-grid>
@@ -37,7 +37,6 @@
             (click)="presentAlertForSchedulingFeed()"
             expand="block"
             shape="round"
-            color="success"
             >Schedule</ion-button
           ></ion-col
         >
@@ -46,7 +45,6 @@
             (click)="presentAlertForSchedulingFeed()"
             expand="block"
             shape="round"
-            color="success"
             >Un-Schedule</ion-button
           ></ion-col
         >
