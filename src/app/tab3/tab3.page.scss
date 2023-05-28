@@ -7,13 +7,14 @@ ion-icon{
   margin-left: 4px;
 }
 
-.date-time{
-  margin-bottom: 10px;
-  margin-top: 10px;
-  display: flex;
 
-}
 .logout_btn{
   margin-top: 9px;
-  margin-left: 16px;
+
+}
+
+ion-card-content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

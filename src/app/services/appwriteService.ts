@@ -30,4 +30,8 @@ export class AppwriteService {
   listDocuments(databaseId: string, collectionId: string): Promise<any> {
     return this.databases.listDocuments(databaseId, collectionId);
   }
+  deleteImage(bucketId: string, fileId: string): Promise<any> {
+    return this.storage.deleteFile(bucketId, fileId);
+  }
+
 }

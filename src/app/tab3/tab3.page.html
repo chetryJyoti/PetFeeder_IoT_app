@@ -32,18 +32,31 @@
   </ion-grid>
   <ion-grid *ngIf="!isLoading">
     <ion-row *ngFor="let image of images">
-      <div class="date-time">
-        <div>
-          <ion-icon name="calendar-outline"></ion-icon>
-          {{ image.createdAt | date: 'yyyy-MM-dd' }}
-        </div>
-        <div>
-          <ion-icon name="time-outline"></ion-icon>
-          {{ image.createdAt | date: 'HH:mm:ss' }}
-        </div>
-      </div>
-
-      <img [src]="image.url" alt="Image" />
+      <ion-card>
+        <img [src]="image.url" alt="Image" />
+        <ion-card-content>
+          <div class="date-time">
+            <div>
+              <ion-icon name="calendar"></ion-icon>
+              {{ image.createdAt | date: 'yyyy-MM-dd' }}
+            </div>
+            <div>
+              <ion-icon name="time"></ion-icon>
+              {{ image.createdAt | date: 'HH:mm:ss' }}
+            </div>
+          </div>
+          <div>
+            <ion-button id="open-toast" slot="end" size="small" outline="none" fill="clear" (click)="deleteThisImg(image.imageId)" color="danger"
+              ><ion-icon name="trash-outline"></ion-icon></ion-button
+            >
+            <ion-toast
+              trigger="open-toast"
+              message="image deleted"
+              [duration]="5000"
+            ></ion-toast>
+          </div>
+        </ion-card-content>
+      </ion-card>
     </ion-row>
   </ion-grid>
 </ion-content>

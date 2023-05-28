@@ -10,17 +10,18 @@ import { Router } from '@angular/router';
   selector: 'app-tab3',
   templateUrl: './tab3.page.html',
   styleUrls: ['./tab3.page.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class Tab3Page {
-  images: { url: SafeUrl; createdAt: string }[] = [];
+  images: { url: SafeUrl; createdAt: string; imageId: string }[] = [];
   isLoading: boolean = false;
 
   constructor(
     private appwriteService: AppwriteService,
     private sanitizer: DomSanitizer,
     private datePipe: DatePipe,
-    private authService: AuthenticationService, private router: Router
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   async fetchImages() {
@@ -33,6 +34,7 @@ export class Tab3Page {
           .map((file: any) => ({
             url: this.getSafeUrl(file.$id),
             createdAt: file.$createdAt, // Assuming createdAt is present in the response
+            imageId: file.$id,
           }))
           .sort((a: any, b: any) => b.createdAt.localeCompare(a.createdAt));
 
@@ -50,8 +52,16 @@ export class Tab3Page {
     return this.sanitizer.bypassSecurityTrustUrl(unsafeUrl);
   }
 
+  async deleteThisImg(imageId: any) {
+    await this.appwriteService.deleteImage(environment.BUCKET_ID, imageId);
+    console.log(imageId);
+    setTimeout(() => {
+      this.fetchImages();
+    }, 2000);
+  }
+
   async logout() {
-		await this.authService.logout();
-		this.router.navigateByUrl('/', { replaceUrl: true });
-	}
+    await this.authService.logout();
+    this.router.navigateByUrl('/', { replaceUrl: true });
+  }
 }
