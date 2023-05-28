@@ -7,14 +7,24 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-button
-        (click)="fetchImages()"
-        expand="full"
-        shape="round"
-        color="dark"
-        [disabled]="isLoading"
-        ><ion-icon name="image-outline"></ion-icon> Get Images
-      </ion-button>
+      <ion-col>
+        <ion-button
+          (click)="fetchImages()"
+          shape="round"
+          color="dark"
+          [disabled]="isLoading"
+          ><ion-icon name="image-outline"></ion-icon> Get Images
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button
+          class="logout_btn"
+          color="danger"
+          size="small"
+          (click)="logout()"
+          >Logout</ion-button
+        >
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-spinner class="loader" *ngIf="isLoading"></ion-spinner>

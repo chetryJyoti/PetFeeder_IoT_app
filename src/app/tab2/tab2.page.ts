@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { AppwriteService } from 'src/services/appwriteService';
+import { AppwriteService } from 'src/app/services/appwriteService';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',

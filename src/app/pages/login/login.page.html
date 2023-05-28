@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar >
+   <ion-title>PetFeeder App</ion-title>
+  </ion-toolbar>
+ </ion-header>
+
+ <ion-content>
+  <form (ngSubmit)="login()" [formGroup]="credentials">
+   <div class="input-group">
+    <ion-item>
+     <ion-input aria-label="Email" type="email" placeholder="Email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+     <ion-input aria-label="Password" type="password" placeholder="Password" formControlName="password"></ion-input>
+    </ion-item>
+   </div>
+
+   <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+   <ion-button type="button" expand="block" color="light" fill="clear"
+    ><ion-label class="ion-padding">or Sign up!</ion-label>
+   </ion-button>
+
+   <!-- <ion-button type="button" expand="block" color="tertiary">
+    <ion-icon name="logo-google" slot="start"></ion-icon>
+    Sign in with Google
+   </ion-button>
+   <ion-button type="button" expand="block" color="tertiary">
+    <ion-icon name="logo-apple" slot="start"></ion-icon>
+    Sign in with Apple
+   </ion-button> -->
+  </form>
+ </ion-content>

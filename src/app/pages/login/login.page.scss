@@ -1,0 +1,23 @@
+ion-content {
+  --padding-top: 70%;
+  --padding-start: 10%;
+  --padding-end: 10%;
+  --background: url("/assets/images/login_back.png") 0 0/100% 100% no-repeat;
+}
+
+.input-group {
+  // --color: #9747ff;
+  border: 0.6px solid gray;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.errors {
+  font-size: small;
+  color: #fff;
+  background: var(--ion-color-danger);
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

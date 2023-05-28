@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { AppwriteService } from 'src/services/appwriteService';
+import { AppwriteService } from 'src/app/services/appwriteService';
 import { AlertController } from '@ionic/angular';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
+
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -28,7 +30,8 @@ export class Tab1Page implements OnInit {
     private http: HttpClient,
     private appwriteService: AppwriteService,
     private alertController: AlertController,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+
   ) {
     //fun to change pick images
   }
@@ -214,4 +217,5 @@ export class Tab1Page implements OnInit {
         console.log('Error retrieving feed count:', error);
       });
   }
+
 }
