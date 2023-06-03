@@ -17,6 +17,8 @@ export class Tab1Page implements OnInit {
   currentFeedCount = 0;
   totalFeedCount = 0;
   lastFeedDateTime: string = '';
+  userDetails:any
+  userName:string=''
 
   //means when the currentFeedCount reaches 19 the food is finished(this will be a hard coded value)
   FOOD_EMPTY_ON = 19;
@@ -33,8 +35,16 @@ export class Tab1Page implements OnInit {
     private imagePicker: ImagePicker,
 
   ) {
-    //fun to change pick images
+
   }
+
+  async getUser(){
+    this.userDetails=await this.appwriteService.getCurrentLogInUser()
+    console.log('userDetails:',this.userDetails)
+    this.userName=this.userDetails["name"]
+    console.log(this.userName)
+  }
+  //fun to change pick images
   imagePkr() {
     this.options = {
       width: 60,
@@ -112,6 +122,7 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
     //for testing purposes iam stoping api calls
     this.getFeedDetails();
+    // this.getUser()
   }
 
   async resetFeedCount() {
