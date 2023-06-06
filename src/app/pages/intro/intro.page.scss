@@ -1,0 +1,17 @@
+ion-content {
+  --padding-top: 50%;
+  --padding-start: 10%;
+  --padding-end: 10%;
+  --background: url("/assets/images/petTest.png") 0 0/100% 100% no-repeat;
+  --background-size: cover;
+}
+
+div {
+  h1 {
+    font-weight: bold;
+  }
+}
+div ion-button {
+  margin-top: 20px;
+  --background: #9747ff;
+}
