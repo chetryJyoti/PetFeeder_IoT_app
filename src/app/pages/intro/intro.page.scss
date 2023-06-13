@@ -1,22 +1,30 @@
 ion-content {
-  --padding-top: 20%;
+  --padding-top: 12%;
   --padding-start: 10%;
   --padding-end: 10%;
 }
-div{
+.intro_img {
   margin-top: 0px;
   img {
-    width: 90%;
+    width: 100%;
+    height: 200px;
+    // border: 1px solid red;
   }
 }
-
 h1 {
   font-weight: bold;
 }
 
 div ion-button {
-  margin-top: 16px;
   --border-color: black;
   --color: black;
   font-size: large;
+}
+.appwrite_logo {
+  margin-top: 16px;
+  img {
+    border-radius: 9px;
+    height: 36px;
+    width: 100%;
+  }
 }
