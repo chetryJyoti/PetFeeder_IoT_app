@@ -46,7 +46,7 @@ export class SignupPage implements OnInit {
         this.goToLogin();
       } catch (error) {
         await loading.dismiss();
-        console.log('error', error);
+        // console.log('error', error);
         let errorMessage: any = error;
         const alert = await this.alertController.create({
           header: 'Signup Error',

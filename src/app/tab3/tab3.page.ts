@@ -29,7 +29,7 @@ export class Tab3Page {
     const bucketId = environment.BUCKET_ID;
     await this.appwriteService.getAllImages(bucketId).then(
       (response) => {
-        console.log(response); // Success
+        // console.log(response);
         this.images = response.files
           .map((file: any) => ({
             url: this.getSafeUrl(file.$id),
@@ -54,7 +54,7 @@ export class Tab3Page {
 
   async deleteThisImg(imageId: any) {
     await this.appwriteService.deleteImage(environment.BUCKET_ID, imageId);
-    console.log(imageId);
+    // console.log(imageId);
     setTimeout(() => {
       this.fetchImages();
     }, 2000);

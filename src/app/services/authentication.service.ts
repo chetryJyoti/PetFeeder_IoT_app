@@ -24,7 +24,7 @@ export class AuthenticationService {
   async loadToken() {
     const token = await Preferences.get({ key: TOKEN_KEY });
     if (token && token.value) {
-      console.log('set token: ', token.value);
+      // console.log('set token: ', token.value);
       this.token = token.value;
       this.isAuthenticated.next(true);
     } else {

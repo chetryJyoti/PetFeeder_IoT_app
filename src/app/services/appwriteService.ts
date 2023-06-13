@@ -37,7 +37,7 @@ export class AppwriteService {
   // Login function
   login(email: string, password: string): Promise<any> {
     const promise = this.account.createEmailSession(email, password);
-    console.log('login:', promise);
+    // console.log('login:', promise);
     return promise;
   }
   getCurrentLogInUser() {

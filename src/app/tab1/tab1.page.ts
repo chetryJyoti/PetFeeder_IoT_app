@@ -40,9 +40,9 @@ export class Tab1Page implements OnInit {
 
   async getUser(){
     this.userDetails=await this.appwriteService.getCurrentLogInUser()
-    console.log('userDetails:',this.userDetails)
+    // console.log('userDetails:',this.userDetails)
     this.userName=this.userDetails["name"]
-    console.log(this.userName)
+    // console.log(this.userName)
   }
   //fun to change pick images
   imagePkr() {
@@ -57,7 +57,7 @@ export class Tab1Page implements OnInit {
       (results) => {
         if (results.length > 0) {
           this.selectedImage = results[0];
-          console.log('Image URI: ' + this.selectedImage);
+          // console.log('Image URI: ' + this.selectedImage);
         }
       },
       (err) => {}
@@ -102,20 +102,15 @@ export class Tab1Page implements OnInit {
   foodLevelStatus() {
     if (this.foodLevelValue >= 5 && this.foodLevelValue <= 10) {
       this.foodEmptyMessage = 'Okay';
-      console.log(this.foodEmptyMessage);
-      console.log(this.foodLevelValue);
+
     } else if (this.foodLevelValue > 10 && this.foodLevelValue <= 15) {
       this.foodEmptyMessage = 'Mid way ';
-      console.log(this.foodLevelValue);
-      console.log(this.foodEmptyMessage);
     } else if (this.foodLevelValue > 15 && this.foodLevelValue <= 19) {
       this.foodEmptyMessage = 'almost finished critical';
-      console.log(this.foodLevelValue);
-      console.log(this.foodEmptyMessage);
+
     } else if (this.foodLevelValue == 20) {
       this.foodEmptyMessage = 'empty';
-      console.log(this.foodEmptyMessage);
-      console.log(this.foodLevelValue);
+
     }
   }
 
@@ -209,17 +204,17 @@ export class Tab1Page implements OnInit {
       )
       .then((response) => {
         const documents = response.documents;
-        console.log('documents:', documents);
+        // console.log('documents:', documents);
         if (documents.length > 0) {
           const firstDocument = documents[0];
           this.totalFeedCount = firstDocument.totalFeedCount;
           this.currentFeedCount = firstDocument.FeedTimes;
           this.lastFeedDateTime = firstDocument.LastFeedDateTime;
           this.foodLevelValue=firstDocument.foodLevel
-          console.log(
-            'Total Feed count retrieved successfully:',
-            this.currentFeedCount
-          );
+          // console.log(
+          //   'Total Feed count retrieved successfully:',
+          //   this.currentFeedCount
+          // );
         } else {
           console.log('No documents found in the collection');
         }

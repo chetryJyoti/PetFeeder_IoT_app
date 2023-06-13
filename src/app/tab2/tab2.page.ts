@@ -21,7 +21,7 @@ export class Tab2Page {
       hour12: false,
     };
     this.selectedDate = currentDate.toLocaleString('en-IN', options);
-    console.log(this.selectedDate);
+    // console.log(this.selectedDate);
   }
 
   async presentAlertForSchedulingFeed() {
@@ -51,21 +51,8 @@ export class Tab2Page {
     const data = {
       selectedDateTime: this.selectedDate,
     };
-    console.log("data:",data);
 
 
-    // this.appwriteService
-    //   .updateDocument(
-    //     environment.APPWRITE_DB_ID,
-    //     environment.APPWRITE_COLLECTION_ID,
-    //     environment.APPWRITE_DOC_ID,
-    //     data
-    //   )
-    //   .then(() => {
-    //     console.log('Date and time updated successfully');
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error updating date and time:', error);
-    //   });
+
   }
 }
