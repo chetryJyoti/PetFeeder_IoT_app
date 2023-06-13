@@ -1,27 +1,42 @@
 <ion-header>
-  <ion-toolbar >
-   <ion-title>Login</ion-title>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
- </ion-header>
+</ion-header>
 
- <ion-content>
+<ion-content>
+  <div>
+    <img src="/assets/images/intro2.png" alt="PetFeeder Image" />
+  </div>
   <form (ngSubmit)="login()" [formGroup]="credentials">
-   <div class="input-group">
-    <ion-item>
-     <ion-input aria-label="Email" type="email" placeholder="Email" formControlName="email"></ion-input>
-    </ion-item>
+    <div class="input-group">
+      <ion-item>
+        <ion-input
+          aria-label="Email"
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
 
-    <ion-item>
-     <ion-input aria-label="Password" type="password" placeholder="Password" formControlName="password"></ion-input>
-    </ion-item>
-   </div>
+      <ion-item>
+        <ion-input
+          aria-label="Password"
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+    </div>
 
-   <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
-   <ion-button type="button" expand="block" color="light" fill="clear"
-    ><ion-label class="ion-padding">or Sign up!</ion-label>
-   </ion-button>
+    <ion-button class="login-btn" type="submit" expand="block" [disabled]="!credentials.valid"
+      >Log in</ion-button
+    >
+    <ion-button class="signup-btn" type="button" expand="block"  fill="clear"
+      ><ion-label class="ion-padding">or Sign up!</ion-label>
+    </ion-button>
 
-   <!-- <ion-button type="button" expand="block" color="tertiary">
+    <!-- <ion-button type="button" expand="block" color="tertiary">
     <ion-icon name="logo-google" slot="start"></ion-icon>
     Sign in with Google
    </ion-button>
@@ -30,4 +45,4 @@
     Sign in with Apple
    </ion-button> -->
   </form>
- </ion-content>
+</ion-content>

@@ -46,14 +46,9 @@
             </div>
           </div>
           <div>
-            <ion-button id="open-toast" slot="end" size="small" outline="none" fill="clear" (click)="deleteThisImg(image.imageId)" color="danger"
+            <ion-button slot="end" size="small" outline="none" fill="clear" (click)="deleteThisImg(image.imageId)" color="danger"
               ><ion-icon name="trash-outline"></ion-icon></ion-button
             >
-            <ion-toast
-              trigger="open-toast"
-              message="image deleted"
-              [duration]="5000"
-            ></ion-toast>
           </div>
         </ion-card-content>
       </ion-card>
