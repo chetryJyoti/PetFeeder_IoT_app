@@ -22,8 +22,15 @@ export class AppwriteService {
   }
 
   //for auth
-  signup(email: string, password: string): Promise<any> {
-    const promise = this.account.create(ID.unique(), email, password);
+  signup(email: string, password: string, name: string): Promise<any> {
+    const promise = this.account.create(ID.unique(), email, password, name)
+      .catch((error) => {
+        // Handle the error here
+        console.error('Signup failed:', error.message);
+        // Throw the error again to propagate it to the caller
+        throw error.message;
+      });
+
     return promise;
   }
 
@@ -31,11 +38,10 @@ export class AppwriteService {
   login(email: string, password: string): Promise<any> {
     const promise = this.account.createEmailSession(email, password);
     console.log('login:', promise);
-
     return promise;
   }
-  getCurrentLogInUser(){
-    return this.account.get()
+  getCurrentLogInUser() {
+    return this.account.get();
   }
 
   getAllImages(bucketId: string): Promise<any> {

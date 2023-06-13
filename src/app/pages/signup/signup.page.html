@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Signup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="pet_img">
+    <img src="/assets/images/intro2.png" alt="PetFeeder Image" />
+  </div>
+  <form (ngSubmit)="signup()" [formGroup]="registrationForm">
+    <div class="input-group">
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input
+          aria-label="Name"
+          type="text"
+          placeholder="Enter your name"
+          formControlName="name"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          aria-label="Email"
+          type="email"
+          placeholder="Enter your email"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          aria-label="Password"
+          type="password"
+          placeholder="Enter a password"
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button class="signup-btn" type="submit" expand="block" [disabled]="!registrationForm.valid"
+      >Sign up</ion-button
+    >
+
+    <ion-button (click)="goToLogin()" class="login-btn" type="button" expand="block" fill="clear"
+      ><ion-label class="ion-padding">or Log in!</ion-label>
+    </ion-button>
+  </form>
+</ion-content>

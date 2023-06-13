@@ -2,17 +2,18 @@ ion-content {
   --padding-start: 6%;
   --padding-end: 6%;
 }
-img {
-  width: 90%;
+.pet_img {
+  margin-left: 14%;
+  img {
+    width: 80%;
+  }
 }
 .input-group {
-  // --color: #9747ff;
   border: 0.6px solid gray;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 15px;
 }
-
 .errors {
   font-size: small;
   color: #fff;
@@ -20,7 +21,4 @@ img {
   padding-left: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
-}
-ion-button .login-btn {
-  --background: #9747ff;
 }
