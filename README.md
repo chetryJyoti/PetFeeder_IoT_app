@@ -1,4 +1,4 @@
-# PetFeeder IoT App (SIH WINNER PROJECT)
+# PetFeeder IoT App
 
 IoT-based Smart Pet Feeder using Appwrite as the backend service
 
